@@ -1,4 +1,5 @@
 var Keyboard = require('./Keyboard');
+
 var InputDevice = React.createClass({
   render: function(){
     return (
