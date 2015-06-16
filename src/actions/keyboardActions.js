@@ -6,7 +6,7 @@ var keyboardActions = {
   keyDown: function(note, frequency){
     AppDispatcher.handleAction({
       actionType: appConstants.KEY_DOWN,
-      data: note
+      data: { note: note, frequency: frequency }
     });
   },
   keyUp: function(note){

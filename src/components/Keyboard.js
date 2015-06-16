@@ -44,7 +44,7 @@ var Keyboard = React.createClass({
   render: function(){   
     return (
       <div>
-        <p>Currently playing {this.state.keysPressed.join(', ')}</p>
+        <p>Currently playing {Object.keys(this.state.keysPressed).join(', ')}</p>
         <div id="keyboard"></div>
       </div>
     )

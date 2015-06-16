@@ -7,20 +7,18 @@ var
 var CHANGE_EVENT = 'change';
 
 var _store = {
-  activeKeys: []
+  activeKeys: {}
 };
 
-var keyDown = function(note, frequency){
-  var index = _store.activeKeys.indexOf(note);
-  if (index < 0) {
-    _store.activeKeys.push(note);
+var keyDown = function(data){
+  if (!_store.activeKeys[data.note]) {
+    _store.activeKeys[data.note] = data.frequency;
   }
 };
 
 var keyUp = function(note){
-  var index = _store.activeKeys.indexOf(note);
-  if (index > -1) {
-    _store.activeKeys.splice(index, 1);
+  if (_store.activeKeys[note]) {
+    delete _store.activeKeys[note];
   }
 }
 
@@ -32,7 +30,6 @@ var keyboardStore = objectAssign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
   getActiveKeys: function(){
-    console.log(_store.activeKeys);
     return _store.activeKeys;
   },
 });

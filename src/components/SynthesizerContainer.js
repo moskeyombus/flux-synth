@@ -5,6 +5,11 @@ var
   InputDevice = require('./InputDevice');
 
 var SynthesizerContainer = React.createClass({
+  getInitialState: function() {
+    return {
+      audioContext: new AudioContext
+    } 
+  },
   render: function(){
     return (
       <div class="row">
@@ -15,7 +20,7 @@ var SynthesizerContainer = React.createClass({
           <ModuleViewContainer />
         </div>        
         <div class="col-md-12">
-          <InputDevice />
+          <InputDevice audioContext={this.state.audioContext}/>
         </div>
       </div>
     )

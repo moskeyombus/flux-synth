@@ -7,7 +7,7 @@ var InputDevice = React.createClass({
     return (
       <div>
         <div> This is the input device. </div>
-        <Keyboard name="blank keyboard"/>
+        <Keyboard name="blank keyboard" audioContext={this.props.audioContext}/>
       </div>
     )
   }
