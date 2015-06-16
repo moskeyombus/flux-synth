@@ -20,6 +20,8 @@
     "watchify": "^3.2.2"
   },
   "dependencies": {
-    "qwerty-hancock": "^0.4.5"
+    "flux": "^2.0.3",
+    "qwerty-hancock": "^0.4.5",
+    "react": "^0.13.3"
   }
 }

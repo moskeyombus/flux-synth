@@ -15,7 +15,7 @@ var path = {
   DEST: 'dist',
   DEST_BUILD: 'dist/build',
   DEST_SRC: 'dist/src',
-  ENTRY_POINT: './src/js/App.js'
+  ENTRY_POINT: './src/components/App.js'
 };
 
 // Development Tasks
