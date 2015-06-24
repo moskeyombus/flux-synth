@@ -1,18 +1,17 @@
 var
   React = require('react'),
   qwertyHancock = require('../../node_modules/qwerty-hancock/dist/qwerty-hancock'),
-  keyboardStore = require('../stores/keyboardStore'),
   keyboardActions = require('../actions/keyboardActions');  
 
 var Keyboard = React.createClass({
   getInitialState: function(){
     return {
-      keysPressed: keyboardStore.getActiveKeys()
+      keysPressed: this.props.activeKeys
     }
   },
   componentDidMount: function(){
     var self = this;
-    keyboardStore.addChangeListener(this._onChange);
+
     this.keyboard = new QwertyHancock({
       id: 'keyboard',
       width: 600,
@@ -26,8 +25,8 @@ var Keyboard = React.createClass({
     this.keyboard.keyDown = function (note, frequency) {
       self.handleKeyDown(note, frequency);
     };
-    this.keyboard.keyUp = function (note) {
-      self.handleKeyUp(note);
+    this.keyboard.keyUp = function (note, frequency) {
+      self.handleKeyUp(note, frequency);
     };       
   },
   handleKeyDown: function(note, frequency){
@@ -36,15 +35,9 @@ var Keyboard = React.createClass({
   handleKeyUp: function(note, frequency){
     keyboardActions.keyUp(note, frequency);
   }, 
-  _onChange: function(){
-    this.setState({
-      keysPressed: keyboardStore.getActiveKeys()
-    })
-  },   
   render: function(){   
     return (
       <div>
-        <p>Currently playing {Object.keys(this.state.keysPressed).join(', ')}</p>
         <div id="keyboard"></div>
       </div>
     )

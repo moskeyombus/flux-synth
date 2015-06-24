@@ -21,7 +21,9 @@ var ModuleList = React.createClass({
         <h3>Module List</h3>
         <button onClick={this.addModule}> Add Module </button>
         <ul>
+          <li>Input Device</li>
           {listItems}
+          <li>Output Device</li>
         </ul>
       </div>
     )

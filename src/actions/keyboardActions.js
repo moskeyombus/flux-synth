@@ -5,14 +5,14 @@ var
 var keyboardActions = {
   keyDown: function(note, frequency){
     AppDispatcher.handleAction({
-      actionType: appConstants.KEY_DOWN,
+      actionType: appConstants.NOTE_START,
       data: { note: note, frequency: frequency }
     });
   },
-  keyUp: function(note){
+  keyUp: function(note, frequency){
     AppDispatcher.handleAction({
-      actionType: appConstants.KEY_UP,
-      data: note
+      actionType: appConstants.NOTE_STOP,
+      data: { note: note, frequency: frequency }
     })
   }
 };

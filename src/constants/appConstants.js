@@ -1,6 +1,6 @@
 var appConstants = {
-  KEY_DOWN: "KEY_DOWN",
-  KEY_UP: "KEY_UP"
+  NOTE_START: "NOTE_START",
+  NOTE_STOP: "NOTE_STOP"
 };
 
 module.exports = appConstants;

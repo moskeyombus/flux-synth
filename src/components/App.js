@@ -1,5 +1,5 @@
 var 
   React = require('react'),
-  SynthesizerContainer = require('./SynthesizerContainer');
+  Synthesizer = require('./Synthesizer');
 
-React.render(<SynthesizerContainer />, document.getElementById('app'));
+React.render(<Synthesizer />, document.getElementById('app'));
