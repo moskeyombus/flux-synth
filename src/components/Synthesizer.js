@@ -1,12 +1,14 @@
 var
   React = require('react'),
-  Synthesizer = require('./Synthesizer'),
   ModuleList = require('./ModuleList'),
   ModuleViewContainer = require('./ModuleViewContainer'),    
   InputDevice = require('./InputDevice'),
   moduleStore = require('../stores/moduleStore'),   
   synthesizerActions = require('../actions/synthesizerActions'),
-  appConstants = require('../constants/appConstants');
+  appConstants = require('../constants/appConstants'),
+  Grid = require('react-bootstrap').Grid,
+  Row = require('react-bootstrap').Row,
+  Col = require('react-bootstrap').Col;
 
 var Synthesizer = React.createClass({
   getInitialState: function() {
@@ -23,17 +25,25 @@ var Synthesizer = React.createClass({
   },     
   render: function(){
     return (
-      <div class="row">
-        <div class="col-md-4">
-          <ModuleList audioContext={this.state.audioContext} moduleList={this.state.modules}/>
-        </div>
-        <div class="col-md-8">
-          <ModuleViewContainer />
-        </div>        
-        <div class="col-md-12">
-          <InputDevice />
-        </div>
-      </div>
+      <Grid>
+        <Row>
+          <Col md={2}>
+            <ModuleList audioContext={this.state.audioContext} moduleList={this.state.modules}/>
+          </Col>
+          <Col md={10}>
+            <Row>
+              <Col md={12}>
+                <ModuleViewContainer />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <InputDevice />
+              </Col>
+            </Row>            
+          </Col>        
+        </Row>
+      </Grid>
     )
   },
   _onNewModule: function(value){

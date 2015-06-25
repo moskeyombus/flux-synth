@@ -48,7 +48,7 @@ AppDispatcher.register(function(payload){
       break;    
     case appConstants.events.SELECT_MODULE:
       _store.selectedModule = action.data.moduleId;
-      moduleStore.emit(appConstants.events.SELECT_MODULE, action.data.moduleId);
+      moduleStore.emit(appConstants.events.SELECT_MODULE, _store.modules[_store.selectedModule]);
       break;
     default:
       return true;
