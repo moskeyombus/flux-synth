@@ -2,47 +2,43 @@ var
   React = require('react'),
   Synthesizer = require('./Synthesizer'),
   ModuleList = require('./ModuleList'),
-  ModuleViewContainer = require('./ModuleViewContainer'),
-  noteStore = require('../stores/noteStore'),   
-  InputDevice = require('./InputDevice');
+  ModuleViewContainer = require('./ModuleViewContainer'),    
+  InputDevice = require('./InputDevice'),
+  moduleStore = require('../stores/moduleStore'),   
+  synthesizerActions = require('../actions/synthesizerActions'),
+  appConstants = require('../constants/appConstants');
 
 var Synthesizer = React.createClass({
   getInitialState: function() {
+    moduleStore.addNewModuleListener(this._onNewModule);
     return {
       audioContext: new AudioContext,
-      oscillators: {}
+      modules: {}
     } 
-  },
+  },  
   componentDidMount: function(){
-    noteStore.addChangeListeners(this._onNoteStart, this._onNoteStop);
-  },    
+    synthesizerActions.addModule({name: "Primary Input", type: appConstants.moduleTypes.INPUT})
+    synthesizerActions.addModule({name: "Synth Module", type: appConstants.moduleTypes.SYNTH_MODULE})
+    synthesizerActions.addModule({name: "Primary Output", type: appConstants.moduleTypes.OUTPUT})    
+  },     
   render: function(){
     return (
       <div class="row">
         <div class="col-md-4">
-          <ModuleList />
+          <ModuleList audioContext={this.state.audioContext} moduleList={this.state.modules}/>
         </div>
         <div class="col-md-8">
           <ModuleViewContainer />
         </div>        
         <div class="col-md-12">
-          <InputDevice audioContext={this.state.audioContext}/>
+          <InputDevice />
         </div>
       </div>
     )
   },
-  _onNoteStart: function(value){
-    this.state.oscillators[value.note] = this.state.audioContext.createOscillator();
-    this.state.oscillators[value.note].type = 'square';
-    this.state.oscillators[value.note].connect(this.state.audioContext.destination)    
-    this.state.oscillators[value.note].frequency.setValueAtTime(value.frequency, this.state.audioContext.currentTime);
-    this.state.oscillators[value.note].start();
-    console.log("Starting " + value.note)
-  },
-  _onNoteStop: function(value){
-    this.state.oscillators[value.note].stop();
-    console.log("Stopping " + value.note)
-  }  
+  _onNewModule: function(value){
+    this.setState({modules: moduleStore.getModuleList()});
+  }
 });
 
 module.exports = Synthesizer;

@@ -6,10 +6,12 @@ var
   browserify = require('browserify'),
   watchify = require('watchify'),
   reactify = require('reactify'),
-  streamify = require('gulp-streamify');
+  streamify = require('gulp-streamify'),
+  sass = require('gulp-sass');
 
 var path = {
   HTML: 'src/index.html',
+  SASS: 'src/sass/**/*.scss',
   MINIFIED_OUT: 'build.min.js',
   OUT: 'build.js',
   DEST: 'dist',
@@ -32,9 +34,16 @@ gulp.task('replaceHTMLsrc', function(){
     .pipe(gulp.dest(path.DEST));
 });
 
+gulp.task('sass', function () {
+  gulp.src('./src/sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest(path.DEST));
+});
+
 gulp.task('watch', ['replaceHTMLsrc'], function() {
   gulp.watch(path.HTML, ['replaceHTMLsrc']);
- 
+  gulp.watch(path.SASS, ['sass']);
+
   var watcher  = watchify(browserify({
     entries: [path.ENTRY_POINT],
     transform: [reactify],
@@ -75,4 +84,4 @@ gulp.task('replaceHTML', function(){
 
 // Main Tasks
 gulp.task('default', ['watch']);
-gulp.task('production', ['replaceHTML', 'build']);
+gulp.task('production', ['replaceHTML', 'sass', 'build']);
