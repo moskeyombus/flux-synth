@@ -2,7 +2,6 @@ var
   React = require('react'),
   ModuleList = require('./ModuleList'),
   ModuleViewContainer = require('./ModuleViewContainer'),    
-  InputDevice = require('./InputDevice'),
   moduleStore = require('../stores/moduleStore'),   
   synthesizerActions = require('../actions/synthesizerActions'),
   appConstants = require('../constants/appConstants'),
@@ -28,19 +27,14 @@ var Synthesizer = React.createClass({
       <Grid>
         <Row>
           <Col md={2}>
-            <ModuleList audioContext={this.state.audioContext} moduleList={this.state.modules}/>
+            <ModuleList moduleList={this.state.modules}/>
           </Col>
           <Col md={10}>
             <Row>
               <Col md={12}>
-                <ModuleViewContainer />
+                <ModuleViewContainer audioContext={this.state.audioContext} modules={this.state.modules}/>
               </Col>
-            </Row>
-            <Row>
-              <Col md={12}>
-                <InputDevice />
-              </Col>
-            </Row>            
+            </Row>           
           </Col>        
         </Row>
       </Grid>

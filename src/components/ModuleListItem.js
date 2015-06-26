@@ -23,11 +23,13 @@ var ModuleListItem = React.createClass({
   },
   _handleClick: function() {
     moduleListItemActions.selectModule({ moduleId: this.state._id });
-    this.setState({selected: true})
   },
   _onSelectModule: function(module) {
-    if(moduleStore.getSelectedModule() !== this.state._id) {
+    if(module._id === this.state._id && this.state.selected) {
       this.setState({selected: false})
+    }
+    else if(module._id === this.state._id) {
+      this.setState({selected: true})
     }
   }
 });
